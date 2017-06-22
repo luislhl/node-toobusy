@@ -73,9 +73,10 @@ process.on('SIGINT', function() {
 
 The library exposes a few knobs:
 
-`maxLag` - This number represents the maximum amount of time in milliseconds that the event queue is behind,
-before we consider the process *too busy*.
-`interval` - The check interval for measuring event loop lag, in ms.
+**maxLag** - This number represents the maximum amount of time in milliseconds that the event queue is behind,
+before we consider the process *too busy*.  
+**interval** - The check interval for measuring event loop lag, in ms.  
+**smoothingFactor** - The smoothing factor used to calculate currentLag, with the standard [exponential smoothing formula](https://en.wikipedia.org/wiki/Exponential_smoothing): `currentLag = smoothingFactor * lag + (1 - smoothingFactor) * currentLag;`
 
 ```javascript
 var toobusy = require('toobusy-js');
@@ -86,6 +87,10 @@ toobusy.maxLag(10);
 // Set check interval to a faster value. This will catch more latency spikes
 // but may cause the check to be too sensitive.
 toobusy.interval(250);
+
+// Set smoothing factor to a lower value. This will make it less sensible
+// to spikes. Default is 1/3.
+toobusy.smoothingFactor(1/4);
 
 // Get current maxLag or interval setting by calling without parameters.
 var currentMaxLag = toobusy.maxLag(), interval = toobusy.interval();
