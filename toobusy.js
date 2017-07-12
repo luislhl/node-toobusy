@@ -143,6 +143,19 @@ toobusy.onLag = function (fn, threshold) {
 };
 
 /**
+ * Calculates the new value that will be assigned to currentLag
+ * Overwrite this function if you need a different behavior
+ * @param {number} lag The last measured lag
+ * @param {number} cLag The currentLag value
+ * @param {number} sFactor The smoothingFactor value
+ * @return {number} The calculated value
+ */
+toobusy.lagFunction = function (lag, cLag, sFactor) {
+    // Dampen lag. See SMOOTHING_FACTOR initialization at the top of this file.
+    return sFactor * lag + (1 - sFactor) * cLag;
+}
+
+/**
  * Private - starts checking lag.
  */
 function start() {
@@ -150,8 +163,7 @@ function start() {
     var now = Date.now();
     var lag = now - lastTime;
     lag = Math.max(0, lag - interval);
-    // Dampen lag. See SMOOTHING_FACTOR initialization at the top of this file.
-    currentLag = smoothingFactor * lag + (1 - smoothingFactor) * currentLag;
+    currentLag = toobusy.lagFunction(lag, currentLag, smoothingFactor);
     lastTime = now;
 
     if (lagEventThreshold !== -1 && currentLag > lagEventThreshold) {
