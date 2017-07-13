@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/luislhl/node-toobusy.png)](http://travis-ci.org/luislhl/node-toobusy)
+[![npm version](https://badge.fury.io/js/node-toobusy.svg)](https://www.npmjs.com/package/node-toobusy)
 
 # Is Your Node Process Too Busy?
 
