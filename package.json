@@ -31,7 +31,8 @@
     "event",
     "loop",
     "lag",
-    "maxlag"
+    "maxlag",
+    "busy"
   ],
   "tonicExampleFilename": "examples/example.js"
 }
