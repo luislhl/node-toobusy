@@ -1,4 +1,4 @@
-var toobusy = require('toobusy-js');
+var toobusy = require('node-toobusy');
 
 // Set maximum lag to an aggressive value.
 toobusy.maxLag(10);

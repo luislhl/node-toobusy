@@ -2,7 +2,7 @@
 
 # Is Your Node Process Too Busy?
 
-`toobusy-js` is a fork of lloyd's [node-toobusy](http://github.com/lloyd/node-toobusy) that removes native dependencies
+`node-toobusy` is a fork of lloyd's [node-toobusy](http://github.com/lloyd/node-toobusy) that removes native dependencies
 in favor of using the `unref` introduced in [node 0.9.1](http://blog.nodejs.org/2012/08/28/node-v0-9-1-unstable/).
 
 This package is a simpler install without native dependencies, but requires node >= 0.9.1.
@@ -38,7 +38,7 @@ npm install node-toobusy
 ## usage
 
 ```javascript
-var toobusy = require('toobusy-js'),
+var toobusy = require('node-toobusy'),
     express = require('express');
 
 var app = express();
@@ -75,7 +75,7 @@ It's a good idea to keep the factor on fall higher than on rise, to make the cur
 **lagFunction** - This is the function used to calculate currentLag. You can overwrite it if you need a different behavior.    The parameters passed to it are: `lag`, `currentLag`, `smoothingFactorOnRise` and `smoothingFactorOnFall`.  
 
 ```javascript
-var toobusy = require('toobusy-js');
+var toobusy = require('node-toobusy');
 
 // Set maximum lag to an aggressive value.
 toobusy.maxLag(10);
@@ -120,7 +120,7 @@ The default of 70 should get you started.
 
 ## Events
 
-As of `0.5.0`, `toobusy-js` exposes an `onLag` method. Pass it a callback to be notified when
+As of `0.5.0`, `node-toobusy` exposes an `onLag` method. Pass it a callback to be notified when
 a slow event loop tick has been detected.
 
 ## references
