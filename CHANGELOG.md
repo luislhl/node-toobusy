@@ -1,3 +1,6 @@
+### 0.6.3
+  * Update example.js. Thanks @khalidsalomao
+
 ### 0.6.2
   * New example and improvements in package.json. Thanks @khalidsalomao
 
