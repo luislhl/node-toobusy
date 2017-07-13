@@ -2,7 +2,7 @@
   "name": "node-toobusy",
   "description": "Don't fall over when your Node.JS server is too busy. Now without native dependencies!",
   "homepage": "https://github.com/luislhl/node-toobusy#readme",
-  "version": "0.6.2",
+  "version": "0.6.1",
   "dependencies": {},
   "devDependencies": {
     "mocha": "1.7.0",
@@ -33,5 +33,5 @@
     "lag",
     "maxlag"
   ],
-  "tonicExampleFilename": "examples/example.js",
+  "tonicExampleFilename": "examples/example.js"
 }
