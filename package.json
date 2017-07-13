@@ -1,7 +1,7 @@
 {
   "name": "node-toobusy",
   "description": "Don't fall over when your Node.JS server is too busy. Now without native dependencies!",
-  "homepage": "https://github.com/STRML/node-toobusy",
+  "homepage": "https://github.com/luislhl/node-toobusy#readme",
   "version": "0.6.1",
   "dependencies": {},
   "devDependencies": {
@@ -14,11 +14,24 @@
     "Luis Helder <dev.luislhl@gmail.com>"
   ],
   "license": "WTFPL",
-  "repository": "luislhl/node-toobusy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luislhl/node-toobusy.git"
+  },
   "engines": {
     "node": ">=0.9.1"
   },
   "scripts": {
+    "prepublishOnly": "npm test",
     "test": "mocha tests"
-  }
+  },
+  "keywords": [
+    "toobusy",
+    "node-toobusy",
+    "event",
+    "loop",
+    "lag",
+    "maxlag"
+  ],
+  "tonicExampleFilename": "examples/example.js"
 }
