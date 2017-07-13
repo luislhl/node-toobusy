@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/STRML/node-toobusy.png)](http://travis-ci.org/STRML/node-toobusy)
+[![Build Status](https://secure.travis-ci.org/luislhl/node-toobusy.png)](http://travis-ci.org/luislhl/node-toobusy)
 
 # Is Your Node Process Too Busy?
 
