@@ -67,12 +67,12 @@ var server = app.listen(3000);
 The library exposes a few knobs:
 
 **maxLag** - This number represents the maximum amount of time in milliseconds that the event queue is behind,
-before we consider the process *too busy*.
-**interval** - The check interval for measuring event loop lag, in ms.
-**smoothingFactor** - When a new lag is measured, we smooth its value using the standard [exponential smoothing formula](https://en.wikipedia.org/wiki/Exponential_smoothing).
-There are two factors available, the smoothingFactorOnRise, which is used when the new lag is higher than currentLag, and the smoothingFactorOnFall, which is used when the new lag is lower than currentLag.
-It's a good idea to keep the factor on fall higher than on rise, to make the currentLag recover faster after spikes.
-**lagFunction** - This is the function used to calculate currentLag. You can overwrite it if you need a different behavior. The parameters passed to it are: `lag`, `currentLag`, `smoothingFactorOnRise` and `smoothingFactorOnFall`.
+before we consider the process *too busy*.  
+**interval** - The check interval for measuring event loop lag, in ms.  
+**smoothingFactor** - When a new lag is measured, we smooth its value using the standard [exponential smoothing formula](https://en.wikipedia.org/wiki/Exponential_smoothing).  
+There are two factors available, the smoothingFactorOnRise, which is used when the new lag is higher than currentLag, and the smoothingFactorOnFall, which is used when the new lag is lower than currentLag.  
+It's a good idea to keep the factor on fall higher than on rise, to make the currentLag recover faster after spikes.  
+**lagFunction** - This is the function used to calculate currentLag. You can overwrite it if you need a different behavior.    The parameters passed to it are: `lag`, `currentLag`, `smoothingFactorOnRise` and `smoothingFactorOnFall`.  
 
 ```javascript
 var toobusy = require('toobusy-js');
