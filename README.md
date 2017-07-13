@@ -31,7 +31,7 @@ and continue serving as many requests as possible.
 ## installation
 
 ```
-npm install toobusy-js
+npm install node-toobusy
 ```
 
 
@@ -60,13 +60,6 @@ app.get('/', function(req, res) {
 });
 
 var server = app.listen(3000);
-
-process.on('SIGINT', function() {
-  server.close();
-  // calling .shutdown allows your process to exit normally
-  toobusy.shutdown();
-  process.exit();
-});
 ```
 
 ## tunable parameters
@@ -76,7 +69,10 @@ The library exposes a few knobs:
 **maxLag** - This number represents the maximum amount of time in milliseconds that the event queue is behind,
 before we consider the process *too busy*.  
 **interval** - The check interval for measuring event loop lag, in ms.  
-**smoothingFactor** - The smoothing factor used to calculate currentLag, with the standard [exponential smoothing formula](https://en.wikipedia.org/wiki/Exponential_smoothing): `currentLag = smoothingFactor * lag + (1 - smoothingFactor) * currentLag;`
+**smoothingFactor** - When a new lag is measured, we smooth its value using the standard [exponential smoothing formula](https://en.wikipedia.org/wiki/Exponential_smoothing).  
+There are two factors available, the smoothingFactorOnRise, which is used when the new lag is higher than currentLag, and the smoothingFactorOnFall, which is used when the new lag is lower than currentLag.  
+It's a good idea to keep the factor on fall higher than on rise, to make the currentLag recover faster after spikes.  
+**lagFunction** - This is the function used to calculate currentLag. You can overwrite it if you need a different behavior. The parameters passed to it are: `lag`, `currentLag`, `smoothingFactorOnRise` and `smoothingFactorOnFall`.
 
 ```javascript
 var toobusy = require('toobusy-js');
@@ -88,9 +84,20 @@ toobusy.maxLag(10);
 // but may cause the check to be too sensitive.
 toobusy.interval(250);
 
-// Set smoothing factor to a lower value. This will make it less sensible
+// Set smoothing factor on rise to a lower value. This will make it less sensible
 // to spikes. Default is 1/3.
-toobusy.smoothingFactor(1/4);
+toobusy.smoothingFactorOnRise(1/4);
+
+// Set smoothing factor on fall to a higher value. This will make it recover faster
+// after spikes. Default is 2/3.
+toobusy.smoothingFactorOnFall(3/4);
+
+// You can overwrite this function to change the way currentLag is calculated.
+// This is the default implementation.
+toobusy.lagFunction = function(lag, cLag, , sFactorRise, sFactorFall) {
+  var factor = lag > cLag ? sFactorRise : sFactorFall;
+  return factor * lag + (1 - factor) * cLag;
+}
 
 // Get current maxLag or interval setting by calling without parameters.
 var currentMaxLag = toobusy.maxLag(), interval = toobusy.interval();

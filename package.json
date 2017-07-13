@@ -1,8 +1,8 @@
 {
-  "name": "toobusy-js",
+  "name": "node-toobusy",
   "description": "Don't fall over when your Node.JS server is too busy. Now without native dependencies!",
   "homepage": "https://github.com/STRML/node-toobusy",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "dependencies": {},
   "devDependencies": {
     "mocha": "1.7.0",
@@ -10,10 +10,11 @@
     "should": "1.2.1"
   },
   "maintainers": [
-    "Samuel Reed <sam@tixelated.com>"
+    "Samuel Reed <sam@tixelated.com>",
+	"Luis Helder <dev.luislhl@gmail.com>"
   ],
   "license": "WTFPL",
-  "repository": "STRML/node-toobusy",
+  "repository": "luislhl/node-toobusy",
   "engines": {
     "node": ">=0.9.1"
   },
