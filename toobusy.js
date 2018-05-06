@@ -19,7 +19,7 @@ var SMOOTHING_FACTOR = 1/3;
 // Vars
 //
 
-var lastTime = Date.now();
+var lastTime;
 var highWater = STANDARD_HIGHWATER;
 var interval = STANDARD_INTERVAL;
 var smoothingFactorOnRise = SMOOTHING_FACTOR;
@@ -66,7 +66,7 @@ toobusy.interval = function(newInterval) {
   newInterval = Math.round(newInterval);
   if(newInterval < 16) throw new Error("Interval should be greater than 16ms.");
 
-  toobusy.shutdown();
+  currentLag = 0;
   interval = newInterval;
   start();
   return interval;
@@ -157,10 +157,11 @@ toobusy.smoothingFactorOnFall = function(newFactor) {
 toobusy.shutdown = function(){
   currentLag = 0;
   checkInterval = clearInterval(checkInterval);
+  eventEmitter.removeAllListeners(LAG_EVENT);
 };
 
 toobusy.started = function() {
-  return !!checkInterval;
+  return Boolean(checkInterval != null);
 };
 
 /**
@@ -197,6 +198,9 @@ toobusy.lagFunction = function (lag, cLag, sFactorRise, sFactorFall) {
  * Private - starts checking lag.
  */
 function start() {
+  lastTime = Date.now();
+
+  clearInterval(checkInterval);
   checkInterval = setInterval(function(){
     var now = Date.now();
     var lag = now - lastTime;
